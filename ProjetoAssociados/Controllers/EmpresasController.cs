@@ -88,22 +88,22 @@ namespace ProjetoAssociados.Controllers
                 return NotFound(empresaModel);
             }
 
-            return View();
+            return View(empresaModel);
         }
 
         [HttpPost]
         public IActionResult Excluir (EmpresaModel empresaModel)
         {
-
-            if (ModelState.IsValid)
+            if (empresaModel == null)
             {
-                _context.Empresas.Remove(empresaModel);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index");
+                return NotFound();
             }
 
-            return View(empresaModel);
+            _context.Empresas.Remove(empresaModel);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
         }
 
     }
