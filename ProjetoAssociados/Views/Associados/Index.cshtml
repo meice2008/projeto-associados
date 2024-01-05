@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AssociadoModel>
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+       
+        <h1>Associados</h1>
+
+        <a class="btn btn-success mx-2" asp-controller="Associados" asp-action="Cadastrar">Cadastrar</a>
+
+    </div>
+
+    <table class="table table-dark table-hover">
+
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Cpf</th>
+                <th scope="col">Data de Nascimento</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @if (Model != null)
+            {
+                @foreach (var associado in Model)
+                {
+                    <tr>
+                        <th scope="row"></th>
+                        <td>@associado.Id</td>
+                        <td>@associado.Nome</td>
+                        <td>@associado.Cpf</td>
+                        <td>@associado.DtNascimento</td>
+
+                        <td>
+                            <a asp-controller="Associados" asp-action="Editar" asp-route-id="@associado.Id" class="btn btn-warning mx-2">Editar</a>
+                            <a asp-controller="Associados" asp-action="Excluir" asp-route-id="@associado.Id" class="btn btn-danger mx-2">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
