@@ -16,6 +16,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\meice\source\repos\ProjetoAssociados\projeto-associados\ProjetoAssociados
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/meice/source/repos/ProjetoAssociados/projeto-associados/ProjetoAssociados/Views/Associados/Cadastrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzb2NpYWRvc1xDYWRhc3RyYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/meice/source/repos/ProjetoAssociados/projeto-associados/ProjetoAssociados/Views/Associados/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzb2NpYWRvc1xFZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/meice/source/repos/ProjetoAssociados/projeto-associados/ProjetoAssociados/Views/Associados/Excluir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzb2NpYWRvc1xFeGNsdWlyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/meice/source/repos/ProjetoAssociados/projeto-associados/ProjetoAssociados/Views/Associados/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzb2NpYWRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

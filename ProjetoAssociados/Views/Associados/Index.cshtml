@@ -6,7 +6,7 @@
        
         <h1>Associados</h1>
 
-        <a class="btn btn-success mx-2">Cadastrar</a>
+        <a class="btn btn-success mx-2" asp-controller="Associados" asp-action="Cadastrar">Cadastrar</a>
 
     </div>
 
@@ -19,6 +19,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Cpf</th>
                 <th scope="col">Data de Nascimento</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -34,12 +35,18 @@
                         <td>@associado.Nome</td>
                         <td>@associado.Cpf</td>
                         <td>@associado.DtNascimento</td>
+
+                        <td>
+                            <a asp-controller="Associados" asp-action="Editar" asp-route-id="@associado.Id" class="btn btn-warning mx-2">Editar</a>
+                            <a asp-controller="Associados" asp-action="Excluir" asp-route-id="@associado.Id" class="btn btn-danger mx-2">Excluir</a>
+                        </td>
                     </tr>
                 }
             }
 
 
         </tbody>
+
     </table>
 
 </div>
