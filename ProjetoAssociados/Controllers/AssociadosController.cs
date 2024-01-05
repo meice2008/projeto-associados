@@ -34,6 +34,8 @@ namespace ProjetoAssociados.Controllers
                 _context.Associados.Add(associadoModel);
                 _context.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Cadastrado com sucesso!!";
+
                 return RedirectToAction("Index");
             }
             return View();

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "U648qm40War7fh02S/14rB5C4vrspy5bAZfoh4/Zubw=",
+  "Hash": "yumFsmt0FY0KzXghLJ/GG5rwQO+Zwppbe7jd3qkr01A=",
   "Source": "ProjetoAssociados",
   "BasePath": "_content/ProjetoAssociados",
   "Mode": "Default",
@@ -51,6 +51,23 @@
       "OriginalItemSpec": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ProjetoAssociados.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\wwwroot\\css\\Materia.css",
+      "SourceId": "ProjetoAssociados",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\wwwroot\\",
+      "BasePath": "_content/ProjetoAssociados",
+      "RelativePath": "css/Materia.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Materia.css"
+    },
+    {
       "Identity": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\wwwroot\\css\\site.css",
       "SourceId": "ProjetoAssociados",
       "SourceType": "Discovered",
@@ -83,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\wwwroot\\img\\homegrupo.jpg",
+      "SourceId": "ProjetoAssociados",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\wwwroot\\",
+      "BasePath": "_content/ProjetoAssociados",
+      "RelativePath": "img/homegrupo.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\homegrupo.jpg"
     },
     {
       "Identity": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\wwwroot\\js\\site.js",

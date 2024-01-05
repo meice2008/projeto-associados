@@ -34,6 +34,8 @@ namespace ProjetoAssociados.Controllers
                 _context.Empresas.Add(empresaModel);
                 _context.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Cadastrado com sucesso!!";
+
                 return RedirectToAction("Index");
             }
 
@@ -67,8 +69,12 @@ namespace ProjetoAssociados.Controllers
                 _context.Empresas.Update(empresaModel);
                 _context.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Editado com sucesso!!";
+
                 return RedirectToAction("Index");
             }
+
+            TempData["MensagemErro"] = "Erro ao realizar edição!! Tente novamente";
 
             return View(empresaModel);
         }
@@ -101,6 +107,8 @@ namespace ProjetoAssociados.Controllers
 
             _context.Empresas.Remove(empresaModel);
             _context.SaveChanges();
+
+            TempData["MensagemSucesso"] = "Excluido com sucesso!!";
 
             return RedirectToAction("Index");
 
