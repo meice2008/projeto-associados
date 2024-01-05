@@ -11,5 +11,7 @@ namespace ProjetoAssociados.Data
         }
 
         public DbSet<AssociadoModel> Associados { get; set; }
+        public DbSet<EmpresaModel> Empresas { get; set; }
+
     }
 }

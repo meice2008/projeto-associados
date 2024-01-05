@@ -1,0 +1,43 @@
+﻿@model EmpresaModel
+
+@{
+    ViewData["Title"] = "Editar Empresa";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Editar Empresas</h1>
+    </div>
+
+    <form method="post" asp-controller="Empresas" asp-action="Editar">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+
+            <label for="Nome" class="form-label text-light">Nome: </label>
+            <input type="text" class="form-control" asp-for="Nome" id="Nome">
+            <span asp-validation-for="Nome" class="text-danger" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label for="Cnpj" class="form-label text-light">Cnpj: </label>
+            <input type="text" class="form-control" asp-for="Cnpj" id="Cnpj">
+            <span asp-validation-for="Cnpj" class="text-danger" />
+
+        </div>
+
+        <div class="d-flex gap-5 nt-5">
+            <button type="submit" class="btn btn-success w-50">Editar</button>
+            <a class="btn btn-primary w-50" asp-controller="Empresas" asp-action="Index">Voltar</a>
+        </div>
+
+
+
+    </form>
+
+</div>
+

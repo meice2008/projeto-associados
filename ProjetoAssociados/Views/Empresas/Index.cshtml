@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EmpresaModel>
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+
+        <h1>Empresas</h1>
+
+        <a class="btn btn-success mx-2" asp-controller="Empresas" asp-action="Cadastrar">Cadastrar</a>
+
+    </div>
+
+    <table class="table table-dark table-hover">
+
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CNPJ</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @if (Model != null)
+            {
+                @foreach (var Empresa in Model)
+                {
+                    <tr>
+                        <th scope="row"></th>
+                        <td>@Empresa.Id</td>
+                        <td>@Empresa.Nome</td>
+                        <td>@Empresa.Cnpj</td>
+
+                        <td>
+                            <a asp-controller="Empresas" asp-action="Editar" asp-route-id="@Empresa.Id" class="btn btn-warning mx-2">Editar</a>
+                            <a asp-controller="Empresas" asp-action="Excluir" asp-route-id="@Empresa.Id" class="btn btn-danger mx-2">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
