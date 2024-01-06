@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
 
@@ -23,6 +24,7 @@ namespace ProjetoAssociados.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            //ViewBag.lstAssociados = new SelectList(_context.Associados, "IdAssociado", "NomeAssociado");
             return View();
         }
 
