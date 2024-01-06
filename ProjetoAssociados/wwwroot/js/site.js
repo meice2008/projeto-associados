@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('#tblAssociados').DataTable({
         language: {
             "decimal": "",
-            "emptyTable": "No data available in table",
+            "emptyTable": "Nenhum registro disponivel",
             "info": "Mostrando _START_ registro de _END_ em um _TOTAL_ registros",
             "infoEmpty": "Mostrando 0 de 0 em 0 registros",
             "infoFiltered": "(filtered from _MAX_ total entries)",
@@ -40,7 +40,7 @@ $(document).ready(function () {
     $('#tblEmpresas').DataTable({
         language: {
             "decimal": "",
-            "emptyTable": "No data available in table",
+            "emptyTable": "Nenhum registro disponivel",
             "info": "Mostrando _START_ registro de _END_ em um _TOTAL_ registros",
             "infoEmpty": "Mostrando 0 de 0 em 0 registros",
             "infoFiltered": "(filtered from _MAX_ total entries)",
