@@ -23,58 +23,22 @@ namespace ProjetoAssociados.Controllers
         public IActionResult Cadastrar()
         {
 
-            var AssociadosEmpresa = _context.Empresas;
-
-            var empresaViewModel = new AssociadoViewModel();
-            var checkboxListAssociados = new List<CheckBoxViewModel>();
-
-            foreach (var item in AssociadosEmpresa)
-            {
-                checkboxListAssociados.Add(new CheckBoxViewModel { Id = item.Id, Nome = item.Nome, Checked = false });
-            }
-
-            empresaViewModel.Empresas = checkboxListAssociados;
-
-            return View(empresaViewModel);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(AssociadoViewModel associadoViewModel)
+        public IActionResult Cadastrar(AssociadoModel associadoModel)
         {
             if (ModelState.IsValid)
             {
-                var associado = new AssociadoModel();
-                associado.Nome = associadoViewModel.Nome;
-                associado.Cpf = associadoViewModel.Cpf;
-                associado.Empresas = new List<EmpresaModel>();
-
-                _context.Associados.Add(associado);
-                _context.SaveChanges();
-
-
-                foreach (var item in associadoViewModel.Empresas)
-                {
-                    if (item.Checked)
-                    {
-                        _context.AssociadosEmpresa.AddRange(new AssociadoModelEmpresaModel()
-                        {
-                            AssociadoId= associado.Id, //empresaViewModel.Id,
-                            EmpresaId = item.Id
-                        });
-
-                    }
-                }
-
-
+                _context.Associados.Add(associadoModel);
                 _context.SaveChanges();
 
                 TempData["MensagemSucesso"] = "Cadastrado com sucesso!!";
 
                 return RedirectToAction("Index");
             }
-
             return View();
-
         }
 
 
@@ -93,77 +57,21 @@ namespace ProjetoAssociados.Controllers
                 return NotFound();
             }
 
-
-            var EmpresasAssociado = from c in _context.Empresas
-                                    select new
-                                    {
-                                        c.Id,
-                                        c.Nome,
-                                        Checked = ((from ce in _context.AssociadosEmpresa
-                                                    where (ce.AssociadoId == Id) & (ce.EmpresaId == c.Id)
-                                                    select ce).Count() > 0)
-                                    };
-
-            var associadoViewModel = new AssociadoViewModel();
-
-            associadoViewModel.Id = Id.Value;
-            associadoViewModel.Nome = associado.Nome;
-            associadoViewModel.Cpf = associado.Cpf;
-
-            var checkboxListAssociados = new List<CheckBoxViewModel>();
-
-            foreach (var item in EmpresasAssociado)
-            {
-                checkboxListAssociados.Add(new CheckBoxViewModel { Id = item.Id, Nome = item.Nome, Checked = item.Checked });
-            }
-
-            associadoViewModel.Empresas = checkboxListAssociados;
-
-            return View(associadoViewModel);
-
+            return View(associado);
         }
 
         [HttpPost]
-        public IActionResult Editar(AssociadoViewModel associadoViewModel)
+        public IActionResult Editar(AssociadoModel associadoModel)
         {
             if (ModelState.IsValid)
             {
-                var associadoSelecionado = _context.Associados.Find(associadoViewModel.Id);
-                associadoSelecionado.Nome = associadoViewModel.Nome;
-                associadoSelecionado.Cpf = associadoViewModel.Cpf;
-                //associadoSelecionado.DtNascimento = associadoViewModel.DtNascimento
-
-                foreach (var item in _context.AssociadosEmpresa)
-                {
-                    if (item.AssociadoId == associadoViewModel.Id)
-                    {
-                        _context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-                    }
-                }
-
-                foreach (var item in associadoViewModel.Empresas)
-                {
-                    if (item.Checked)
-                    {
-                        _context.AssociadosEmpresa.Add(new AssociadoModelEmpresaModel()
-                        {
-                            EmpresaId = item.Id,
-                            AssociadoId = associadoSelecionado.Id
-                        });
-                    }
-                }
-
-
+                _context.Associados.Update(associadoModel);
                 _context.SaveChanges();
-
-                TempData["MensagemSucesso"] = "Editado com sucesso!!";
 
                 return RedirectToAction("Index");
             }
 
-            TempData["MensagemErro"] = "Erro ao realizar edição!! Tente novamente";
-
-            return View(associadoViewModel);
+            return View(associadoModel);
         }
 
         [HttpGet]

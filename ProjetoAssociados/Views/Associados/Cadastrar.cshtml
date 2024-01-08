@@ -1,4 +1,4 @@
-﻿@model AssociadoViewModel
+﻿@model AssociadoModel
 
 @{
     ViewData["Title"] = "Cadastrar Associado";
@@ -11,6 +11,14 @@
     </div>
 
     <form method="post" asp-controller="Associados" asp-action="Cadastrar">
+
+        @* <div class="mb-3">
+
+            <label for="Id" class="form-label text-light">Identificador: </label>
+            <input type="text" class="form-control text-light" asp-for="Id" id="Id" placeholder="Numero Identificador">
+            <span asp-validation-for="Id" class="text-danger" />
+
+        </div> *@
 
         <div class="mb-3">
 
@@ -27,30 +35,6 @@
             <span asp-validation-for="Cpf" class="text-danger"/>
 
         </div>
-
-        <div class="form-group text-light">
-            <label for="Associados" class="text-light">Associados: </label>
-
-            <br />
-
-            <div class="col-md-10">
-                @for (int i = 0; i < Model.Empresas.Count(); i++)
-                {
-                    @Html.EditorFor(m=>Model.Empresas[i].Checked)
-
-                    <text>&nbsp;</text>
-                    @Html.DisplayFor(m=>Model.Empresas[i].Nome)
-
-                    <text>&nbsp;</text>
-                    <br />
-                    @Html.HiddenFor(m=>Model.Empresas[i].Nome)
-                    @Html.HiddenFor(m=>Model.Empresas[i].Id)
-                }
-            </div>
-
-        </div>
-
-        <br />
 
         <div class="d-flex gap-5 nt-5">
             <button type="submit" class="btn btn-success w-50">Adicionar</button>
