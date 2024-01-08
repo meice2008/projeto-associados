@@ -14,7 +14,7 @@ namespace ProjetoAssociados.Models
         [StringLength(14)]
         public string Cnpj { get; set; }
 
-        public ICollection<AssociadoModel> Associados { get; set; }
+        public ICollection<AssociadoModel>? Associados { get; set; }
     }
 
 }

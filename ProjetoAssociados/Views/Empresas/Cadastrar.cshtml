@@ -1,4 +1,4 @@
-﻿@model EmpresaModel
+﻿@model EmpresaViewModel
 
 @{
     ViewData["Title"] = "Cadastrar Empresa";
@@ -10,7 +10,7 @@
         <h1 class="text-light">Cadastro Empresas</h1>
     </div>
 
-    <form method="post" asp-controller="Empresas" asp-action="Cadastrar">
+    <form method="post" asp-controller="Empresas" asp-action="Cadastrar">        
 
         <div class="mb-3">
 
@@ -28,22 +28,34 @@
 
         </div>
 
-        @* <div class="mb-3">
-            <label for="IdAssociado" class="form-label text-light">Associado: </label>
-            
-            <div class="mb-3">
-                @Html.DropDownList("lstAssociados", "Selecione:")
-                <button class="btn btn-success text-light">Associar</button>
+        <div class="form-group text-light">
+            <label for="Associados" class="text-light">Associados: </label>
+
+            <br />
+
+            <div class="col-md-10">
+                @for (int i = 0; i < Model.Associados.Count(); i++)
+                {
+                    @Html.EditorFor(m=>Model.Associados[i].Checked)
+
+                    <text>&nbsp;</text>
+                    @Html.DisplayFor(m=>Model.Associados[i].Nome)
+
+                    <text>&nbsp;</text>
+                    <br />
+                    @Html.HiddenFor(m=>Model.Associados[i].Nome)
+                    @Html.HiddenFor(m=>Model.Associados[i].Id)
+                }
             </div>
-            
-        </div> *@
+
+        </div>
+
+        <br />
 
         <div class="d-flex gap-5 nt-5">
             <button type="submit" class="btn btn-success w-50">Adicionar</button>
             <a class="btn btn-primary w-50" asp-controller="Empresas" asp-action="Index">Voltar</a>
         </div>
-
-
 
     </form>
 

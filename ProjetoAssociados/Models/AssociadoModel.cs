@@ -16,6 +16,6 @@ namespace ProjetoAssociados.Models
         public string Cpf { get; set; }
         public DateTime DtNascimento { get; set; } = DateTime.Now;
 
-        public ICollection<EmpresaModel> Empresas { get; set; }
+        public ICollection<EmpresaModel>? Empresas { get; set; }
     }
 }
