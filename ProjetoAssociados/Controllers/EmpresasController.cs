@@ -79,7 +79,6 @@ namespace ProjetoAssociados.Controllers
         [HttpGet]
         public IActionResult Editar(int? Id)
         {
-
             if(Id == null || Id == 0)
             {
                 return NotFound();
