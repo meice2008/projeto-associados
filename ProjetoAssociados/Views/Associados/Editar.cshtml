@@ -1,4 +1,4 @@
-﻿@model AssociadoModel
+﻿@model AssociadoViewModel
 
 @{
     ViewData["Title"] = "Editar Associado";
@@ -30,6 +30,27 @@
 
         </div>
 
+        <div class="form-group text-light">
+            <label for="Empresas" class="text-light">Empresas: </label>
+
+            <br />
+
+            <div class="col-md-10">
+                @for (int i = 0; i < Model.Empresas.Count(); i++)
+                {
+                    @Html.EditorFor(m=>Model.Empresas[i].Checked)
+
+                    <text>&nbsp;</text>
+                    @Html.DisplayFor(m=>Model.Empresas[i].Nome)
+
+                    <text>&nbsp;</text>
+                    <br />
+                    @Html.HiddenFor(m=>Model.Empresas[i].Nome)
+                    @Html.HiddenFor(m=>Model.Empresas[i].Id)
+                }
+            </div>
+        </div>
+
         <div class="d-flex gap-5 nt-5">
             <button type="submit" class="btn btn-success w-50">Editar</button>
             <a class="btn btn-primary w-50" asp-controller="Associados" asp-action="Index">Voltar</a>
@@ -40,4 +61,3 @@
     </form>
 
 </div>
-
