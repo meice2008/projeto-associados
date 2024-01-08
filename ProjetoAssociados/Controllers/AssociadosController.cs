@@ -58,7 +58,7 @@ namespace ProjetoAssociados.Controllers
                     {
                         _context.AssociadosEmpresa.AddRange(new AssociadoModelEmpresaModel()
                         {
-                            AssociadoId= associado.Id, //empresaViewModel.Id,
+                            AssociadoId = associado.Id, //empresaViewModel.Id,
                             EmpresaId = item.Id
                         });
 
