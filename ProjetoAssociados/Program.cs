@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Services.AssociadoServices;
 using ProjetoAssociados.Services.EmpresaServices;
+using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IEmpresaServices, EmpresaServices>();
 builder.Services.AddScoped<IAssociadoServices, AssociadoServices>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

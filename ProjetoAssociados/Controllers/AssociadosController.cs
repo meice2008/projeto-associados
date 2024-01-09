@@ -25,6 +25,7 @@ namespace ProjetoAssociados.Controllers
             IEnumerable<AssociadoModel> associados = _associadoInterface.GetAssociados().Result; 
             return View(associados);
         }
+        
 
         [HttpGet]
         public IActionResult Cadastrar()

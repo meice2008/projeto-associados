@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
 using ProjetoAssociados.Services.EmpresaServices;
+using Refit;
+using System.Net;
+using System.Text.Json;
 
 namespace ProjetoAssociados.Services.AssociadoServices
 {
@@ -33,14 +37,35 @@ namespace ProjetoAssociados.Services.AssociadoServices
 
         public async Task<AssociadoModel> GetAssociadoById(int? id)
         {
-            var associado = _context.Associados.FirstOrDefaultAsync(x => x.Id == id).Result;
-            return associado;            
+            //
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Associado/" + id);
+            //response.EnsureSuccessStatusCode();
+            string res = await response.Content.ReadAsStringAsync();
+            var final = JsonConvert.DeserializeObject<ServiceResponse<AssociadoModel>>(res);
+            //
+
+            return final.Dados;
+
+            //var associado = _context.Associados.FirstOrDefaultAsync(x => x.Id == id).Result;
+            //return associado;            
         }
 
         public async Task<IEnumerable<AssociadoModel>> GetAssociados()
         {
-            var associados = _context.Associados;
-            return associados;
+
+            //
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Associado");
+            //response.EnsureSuccessStatusCode();
+            string res = await response.Content.ReadAsStringAsync();
+            var final = JsonConvert.DeserializeObject<ServiceResponse<List<AssociadoModel>>>(res);
+            //
+
+            return final.Dados;
+
+            //var associados = _context.Associados;
+            //return associados;
         }
 
         public async Task<AssociadoViewModel> Editar(AssociadoViewModel associadoViewModel)
@@ -127,7 +152,7 @@ namespace ProjetoAssociados.Services.AssociadoServices
                 var associado = new AssociadoModel();
                 associado.Nome = associadoViewModel.Nome;
                 associado.Cpf = associadoViewModel.Cpf;
-                associado.Empresas = new List<EmpresaModel>();
+                //associado.Empresas = new List<EmpresaModel>();
 
                 _context.Associados.Add(associado);
                 _context.SaveChanges();

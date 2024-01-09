@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
 
@@ -32,14 +33,35 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async Task<EmpresaModel> GetEmpresaById(int? id)
         {
-            var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
-            return empresa;
+            //
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa/"+id);
+            //response.EnsureSuccessStatusCode();
+            string res = await response.Content.ReadAsStringAsync();
+            var final = JsonConvert.DeserializeObject<ServiceResponse<EmpresaModel>>(res);
+            //
+
+            return final.Dados;
+
+            //var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
+            //return empresa;
         }
 
         public async Task<IEnumerable<EmpresaModel>> GetEmpresas()
         {
-            var empresas = _context.Empresas;
-            return empresas;
+
+            //
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa");
+            //response.EnsureSuccessStatusCode();
+            string res = await response.Content.ReadAsStringAsync();
+            var final = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(res);
+            //
+
+            return final.Dados;
+
+            //var empresas = _context.Empresas;
+            //return empresas;
 
         }
 

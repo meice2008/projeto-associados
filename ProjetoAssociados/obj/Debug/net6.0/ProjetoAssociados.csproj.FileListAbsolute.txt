@@ -130,3 +130,17 @@ C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAs
 C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\obj\Debug\net6.0\ProjetoAssociados.pdb
 C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\obj\Debug\net6.0\ProjetoAssociados.genruntimeconfig.cache
 C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\obj\Debug\net6.0\ref\ProjetoAssociados.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.Http.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Refit.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Refit.HttpClientFactory.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\System.Net.Http.Json.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\meice\source\repos\ProjetoAssociados\front\projeto-associados\ProjetoAssociados\bin\Debug\net6.0\Newtonsoft.Json.dll
