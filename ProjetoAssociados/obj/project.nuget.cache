@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wUgwIOD4/DcoYqI/4xt+tdYrUEWxiCeDi4VHY49G46Cdwrs5yTvwWzFn5pJD5PtkwoTxDqA34l7ANsQRyWx+/w==",
+  "dgSpecHash": "60rx0bEUxm/6tY6bc3W96LhSwfvK9aZUT0Epk+SSZFXVr9GDT7bonyh/9d5z/5rJKjGoFoP080Ll7mc321G5KA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\ProjetoAssociados.csproj",
+  "projectFilePath": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\front\\projeto-associados\\ProjetoAssociados\\ProjetoAssociados.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\meice\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\meice\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

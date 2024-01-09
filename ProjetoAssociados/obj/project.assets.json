@@ -2019,11 +2019,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\ProjetoAssociados.csproj",
+      "projectUniqueName": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\front\\projeto-associados\\ProjetoAssociados\\ProjetoAssociados.csproj",
       "projectName": "ProjetoAssociados",
-      "projectPath": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\ProjetoAssociados.csproj",
+      "projectPath": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\front\\projeto-associados\\ProjetoAssociados\\ProjetoAssociados.csproj",
       "packagesPath": "C:\\Users\\meice\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\projeto-associados\\ProjetoAssociados\\obj\\",
+      "outputPath": "C:\\Users\\meice\\source\\repos\\ProjetoAssociados\\front\\projeto-associados\\ProjetoAssociados\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\meice\\AppData\\Roaming\\NuGet\\NuGet.Config",

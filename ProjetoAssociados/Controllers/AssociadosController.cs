@@ -1,21 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
+using ProjetoAssociados.Services.AssociadoServices;
+using ProjetoAssociados.Services.EmpresaServices;
 
 namespace ProjetoAssociados.Controllers
 {
     public class AssociadosController : Controller
     {
         readonly private ApplicationDbContext _context;
-        public AssociadosController(ApplicationDbContext context)
+        private readonly IEmpresaServices _empresaInterface;
+        private readonly IAssociadoServices _associadoInterface;
+
+        public AssociadosController(ApplicationDbContext context, IEmpresaServices empresaInterface, IAssociadoServices associadoInterface)
         {
             _context = context;
+            _empresaInterface = empresaInterface;
+            _associadoInterface = associadoInterface;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<AssociadoModel> associados = _context.Associados;
+            IEnumerable<AssociadoModel> associados = _associadoInterface.GetAssociados().Result; //_context.Associados;
             return View(associados);
         }
 
@@ -23,7 +30,7 @@ namespace ProjetoAssociados.Controllers
         public IActionResult Cadastrar()
         {
 
-            var AssociadosEmpresa = _context.Empresas;
+            var AssociadosEmpresa = _empresaInterface.GetEmpresas().Result;  //_context.Empresas;
 
             var empresaViewModel = new AssociadoViewModel();
             var checkboxListAssociados = new List<CheckBoxViewModel>();
@@ -86,7 +93,7 @@ namespace ProjetoAssociados.Controllers
                 return NotFound();
             }
 
-            AssociadoModel associado = _context.Associados.FirstOrDefault(x => x.Id == Id);
+            AssociadoModel associado = _associadoInterface.GetAssociadoById(Id).Result; //_context.Associados.FirstOrDefault(x => x.Id == Id);
 
             if (associado == null)
             {
@@ -94,7 +101,7 @@ namespace ProjetoAssociados.Controllers
             }
 
 
-            var EmpresasAssociado = from c in _context.Empresas
+            var EmpresasAssociado = from c in _context.Empresas  //_empresaInterface.GetEmpresas().Result
                                     select new
                                     {
                                         c.Id,
@@ -128,12 +135,14 @@ namespace ProjetoAssociados.Controllers
         {
             if (ModelState.IsValid)
             {
-                var associadoSelecionado = _context.Associados.Find(associadoViewModel.Id);
+                var associadoSelecionado = _associadoInterface.GetAssociadoById(associadoViewModel.Id).Result;   //_context.Associados.Find(associadoViewModel.Id);
                 associadoSelecionado.Nome = associadoViewModel.Nome;
                 associadoSelecionado.Cpf = associadoViewModel.Cpf;
                 //associadoSelecionado.DtNascimento = associadoViewModel.DtNascimento
 
-                foreach (var item in _context.AssociadosEmpresa)
+                var associadosEmpresa = _empresaInterface.GetEmpresasAssociado().Result;
+
+                foreach (var item in associadosEmpresa)
                 {
                     if (item.AssociadoId == associadoViewModel.Id)
                     {
@@ -174,7 +183,7 @@ namespace ProjetoAssociados.Controllers
                 return NotFound();
             }
 
-            AssociadoModel associado = _context.Associados.FirstOrDefault(x => x.Id == Id);
+            AssociadoModel associado = _associadoInterface.GetAssociadoById(Id).Result; //_context.Associados.FirstOrDefault(x => x.Id == Id);
 
             if (associado == null)
             {
@@ -192,8 +201,10 @@ namespace ProjetoAssociados.Controllers
                 return NotFound();
             }
 
-            _context.Associados.Remove(associadoModel);
-            _context.SaveChanges();
+            _associadoInterface.DeleteAssociado(associadoModel.Id);            
+
+            //_context.Associados.Remove(associadoModel);
+            //_context.SaveChanges();
 
             return RedirectToAction("Index");
         }
