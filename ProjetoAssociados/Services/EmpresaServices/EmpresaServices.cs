@@ -93,7 +93,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         }
 
-
         public async Task<EmpresaViewModel> Editar(EmpresaViewModel empresaViewModel)
         {
             var empresaSelecionada = GetEmpresaById(empresaViewModel.Id).Result; 
