@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
 using ProjetoAssociados.Services.AssociadoServices;
 using ProjetoAssociados.Services.EmpresaServices;

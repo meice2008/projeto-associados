@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
 
@@ -34,34 +32,34 @@ namespace ProjetoAssociados.Services.EmpresaServices
         public async Task<EmpresaModel> GetEmpresaById(int? id)
         {
             //
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa/"+id);
-            //response.EnsureSuccessStatusCode();
-            string res = await response.Content.ReadAsStringAsync();
-            var final = JsonConvert.DeserializeObject<ServiceResponse<EmpresaModel>>(res);
-            //
+            //var client = new HttpClient();
+            //HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa/"+id);
+            ////response.EnsureSuccessStatusCode();
+            //string res = await response.Content.ReadAsStringAsync();
+            //var final = JsonConvert.DeserializeObject<ServiceResponse<EmpresaModel>>(res);
+            ////
 
-            return final.Dados;
+            //return final.Dados;
 
-            //var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
-            //return empresa;
+            var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
+            return empresa;
         }
 
         public async Task<IEnumerable<EmpresaModel>> GetEmpresas()
         {
 
             //
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa");
-            //response.EnsureSuccessStatusCode();
-            string res = await response.Content.ReadAsStringAsync();
-            var final = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(res);
-            //
+            //var client = new HttpClient();
+            //HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa");
+            ////response.EnsureSuccessStatusCode();
+            //string res = await response.Content.ReadAsStringAsync();
+            //var final = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(res);
+            ////
 
-            return final.Dados;
+            //return final.Dados;
 
-            //var empresas = _context.Empresas;
-            //return empresas;
+            var empresas = _context.Empresas;
+            return empresas;
 
         }
 
@@ -84,23 +82,16 @@ namespace ProjetoAssociados.Services.EmpresaServices
             if (empresaModel == null)
             {
                 throw new NotImplementedException();
-            }
+            }            
 
-            var AssociadosEmpresa = from c in _context.Associados 
-                                    select new
-                                    {
-                                        c.Id,
-                                        c.Nome,
-                                        Checked = ((from ce in _context.AssociadosEmpresa
-                                                    where (ce.EmpresaId == Id) & (ce.AssociadoId == c.Id)
-                                                    select ce).Count() > 0)
-                                    };
+            var AssociadosEmpresa = GetAssociadosEmpresa(empresaModel.Id);
 
-            EmpresaViewModel empresaViewModel = new EmpresaViewModel();
-
-            empresaViewModel.Id = Id.Value;
-            empresaViewModel.Nome = empresaModel.Nome;
-            empresaViewModel.Cnpj = empresaModel.Cnpj;
+            EmpresaViewModel empresaViewModel = new EmpresaViewModel()
+            {
+                Id = Id.Value,
+                Nome = empresaModel.Nome,
+                Cnpj = empresaModel.Cnpj
+            };
 
             var checkboxListAssociados = new List<CheckBoxViewModel>();
 
@@ -131,19 +122,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 }
             }
 
-            foreach (var item in empresaViewModel.Associados)
-            {
-                if (item.Checked)
-                {
-                    _context.AssociadosEmpresa.Add(new AssociadoModelEmpresaModel()
-                    {
-                        EmpresaId = empresaViewModel.Id,
-                        AssociadoId = item.Id
-                    });
-                }
-            }
-
-            _context.SaveChangesAsync();
+            CadastrarSociedade(empresaViewModel.Id, empresaViewModel.Associados);            
 
             return empresaViewModel;
 
@@ -153,30 +132,18 @@ namespace ProjetoAssociados.Services.EmpresaServices
         {
             try
             {
-                var empresa = new EmpresaModel();
-                empresa.Nome = empresaViewModel.Nome;
-                empresa.Cnpj = empresaViewModel.Cnpj;
-                empresa.Associados = new List<AssociadoModel>();
+
+                var empresa = new EmpresaModel()
+                {
+                    Nome = empresaViewModel.Nome,
+                    Cnpj  = empresaViewModel.Cnpj
+                };                
 
                 _context.Empresas.Add(empresa);
                 _context.SaveChanges();
 
-
-                foreach (var item in empresaViewModel.Associados)
-                {
-                    if (item.Checked)
-                    {
-                        _context.AssociadosEmpresa.AddRange(new AssociadoModelEmpresaModel()
-                        {
-                            EmpresaId = empresa.Id, 
-                            AssociadoId = item.Id
-                        });
-
-                    }
-                }
-
-                _context.SaveChanges();
-
+                CadastrarSociedade(empresa.Id, empresaViewModel.Associados);
+               
 
             }
             catch(Exception ex)
@@ -184,5 +151,66 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 throw ex;
             }
         }
+
+        public void CadastrarSociedade(int IdEmpresa, List<CheckBoxViewModel> sociedade)
+        {
+
+            try
+            {
+
+                foreach (var item in sociedade)
+                {
+
+                    if (item.Checked)
+                    {
+
+                        var associar = new AssociadoModelEmpresaModel()
+                        {
+                            EmpresaId = IdEmpresa,
+                            AssociadoId = item.Id
+                        };
+
+                        _context.AssociadosEmpresa.AddRange(associar);
+
+                    }
+                }
+
+                _context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<CheckBoxViewModel> GetAssociadosEmpresa(int IdEmpresa)
+        {
+            var lstAssociados = new List<CheckBoxViewModel>();
+
+            try
+            {
+
+                var AssociadosEmpresa = from c in _context.Associados
+                                        select new CheckBoxViewModel
+                                        {
+                                            Id = c.Id,
+                                            Nome = c.Nome,
+                                            Checked = _context.AssociadosEmpresa
+                                                        .Any(ce => ce.EmpresaId == IdEmpresa && ce.AssociadoId == c.Id)
+                                        };
+
+                lstAssociados = AssociadosEmpresa.ToList();
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+
+            return lstAssociados;
+        }
+
     }
 }
