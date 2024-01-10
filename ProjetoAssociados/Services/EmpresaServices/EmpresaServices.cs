@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using ProjetoAssociados.Data;
 using ProjetoAssociados.Models;
+using System.Text;
 
 namespace ProjetoAssociados.Services.EmpresaServices
 {
@@ -15,12 +16,36 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async void DeleteEmpresa(int id)
         {
+
+            const string apiUrl = "https://localhost:7063/api/Empresa/";
+
             EmpresaModel empresa = await GetEmpresaById(id);
 
             try
             {
-                _context.Empresas.Remove(empresa);
-                _context.SaveChanges();
+                
+
+                using (var httpClient = new HttpClient())
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await httpClient.DeleteAsync(apiUrl+ empresa.Id);
+                        response.EnsureSuccessStatusCode();
+
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                        var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(jsonResponse);
+
+                        //return serviceResponse.Dados;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                //_context.Empresas.Remove(empresa);
+                //_context.SaveChanges();
 
             }
             catch (Exception ex)
@@ -32,6 +57,28 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async Task<EmpresaModel> GetEmpresaById(int? id)
         {
+
+            const string apiUrl = "https://localhost:7063/api/Empresa/";
+
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl+id);
+                    response.EnsureSuccessStatusCode();
+
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<EmpresaModel>>(jsonResponse);
+
+                    return serviceResponse.Dados;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
             //
             //var client = new HttpClient();
             //HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa/"+id);
@@ -42,8 +89,8 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
             //return final.Dados;
 
-            var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
-            return empresa;
+            //var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
+            //return empresa;
         }
 
         public async Task<IEnumerable<EmpresaModel>> GetEmpresas()
@@ -140,25 +187,45 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         }
 
-        public void Cadastrar(EmpresaViewModel empresaViewModel)
+        public async void Cadastrar(EmpresaViewModel empresaViewModel)
         {
+            const string apiUrl = "https://localhost:7063/api/Empresa";
+
             try
-            {
+            {                                
 
-                var empresa = new EmpresaModel()
+                using (var httpClient = new HttpClient())
                 {
-                    Nome = empresaViewModel.Nome,
-                    Cnpj  = empresaViewModel.Cnpj
-                };                
+                    try
+                    {
 
-                _context.Empresas.Add(empresa);
-                _context.SaveChanges();
+                        string empresaJson = JsonConvert.SerializeObject(empresaViewModel);
 
-                CadastrarSociedade(empresa.Id, empresaViewModel.Associados);
-               
+                        HttpContent content = new StringContent(empresaJson, Encoding.UTF8, "application/json");                        
+
+                        HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+                        response.EnsureSuccessStatusCode();
+
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                        var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(jsonResponse);
+
+                        //return serviceResponse.Dados;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                
+                //_context.Empresas.Add(empresa);
+                //_context.SaveChanges();
+
+                //CadastrarSociedade(empresa.Id, empresaViewModel.Associados);
+
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
