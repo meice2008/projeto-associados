@@ -79,16 +79,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 }
             }
 
-            //
-            //var client = new HttpClient();
-            //HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Empresa/"+id);
-            ////response.EnsureSuccessStatusCode();
-            //string res = await response.Content.ReadAsStringAsync();
-            //var final = JsonConvert.DeserializeObject<ServiceResponse<EmpresaModel>>(res);
-            ////
-
-            //return final.Dados;
-
             //var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
             //return empresa;
         }
@@ -166,24 +156,44 @@ namespace ProjetoAssociados.Services.EmpresaServices
         }
 
         public async Task<EmpresaViewModel> Editar(EmpresaViewModel empresaViewModel)
-        {
-            var empresaSelecionada = GetEmpresaById(empresaViewModel.Id).Result; 
-            empresaSelecionada.Nome = empresaViewModel.Nome;
-            empresaSelecionada.Cnpj = empresaViewModel.Cnpj;
+        {           
 
-            var associadosEmpresa = GetEmpresasAssociado().Result;
+            const string apiUrl = "https://localhost:7063/api/Empresa/";
 
-            foreach (var item in associadosEmpresa)
+            try
             {
-                if (item.EmpresaId == empresaViewModel.Id)
+
+                using (var httpClient = new HttpClient())
                 {
-                    _context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                    try
+                    {
+
+                        string empresaJson = JsonConvert.SerializeObject(empresaViewModel);
+
+                        HttpContent content = new StringContent(empresaJson, Encoding.UTF8, "application/json");
+
+                        HttpResponseMessage response = await httpClient.PutAsync(apiUrl + empresaViewModel.Id, content);
+                        response.EnsureSuccessStatusCode();
+
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                        var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<EmpresaViewModel>>(jsonResponse);
+
+                        return serviceResponse.Dados;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
-            CadastrarSociedade(empresaViewModel.Id, empresaViewModel.Associados);            
-
-            return empresaViewModel;
+            //return empresaViewModel;
 
         }
 
