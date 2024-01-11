@@ -264,29 +264,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
             }
         }
 
-        //public void CadastrarSociedade(int IdEmpresa, List<CheckBoxViewModel> sociedade)
-        //{
-        //    try
-        //    {
-        //        foreach (var item in sociedade)
-        //        {
-        //            if (item.Checked)
-        //            {
-        //                var associar = new AssociadoModelEmpresaModel()
-        //                {
-        //                    EmpresaId = IdEmpresa,
-        //                    AssociadoId = item.Id
-        //                };
-        //                _context.AssociadosEmpresa.AddRange(associar);
-        //            }
-        //        }
-        //        _context.SaveChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
 
         public async Task<List<CheckBoxViewModel>> GetAssociadosEmpresa(int IdEmpresa)
         {
@@ -314,24 +291,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
             }
 
 
-            //var lstAssociados = new List<CheckBoxViewModel>();
-            //try
-            //{
-            //    var AssociadosEmpresa = from c in _context.Associados
-            //                            select new CheckBoxViewModel
-            //                            {
-            //                                Id = c.Id,
-            //                                Nome = c.Nome,
-            //                                Checked = _context.AssociadosEmpresa
-            //                                            .Any(ce => ce.EmpresaId == IdEmpresa && ce.AssociadoId == c.Id)
-            //                            };
-            //    lstAssociados = AssociadosEmpresa.ToList();
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw ex;
-            //}
-            //return lstAssociados;
         }
 
     }
