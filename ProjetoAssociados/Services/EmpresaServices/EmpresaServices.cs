@@ -8,10 +8,10 @@ namespace ProjetoAssociados.Services.EmpresaServices
 {
     public class EmpresaServices : IEmpresaServices
     {
-        readonly private ApplicationDbContext _context;
-        public EmpresaServices(ApplicationDbContext context)
+        //readonly private ApplicationDbContext _context;
+        public EmpresaServices()
         {
-            _context = context;
+            //_context = context;
         }
 
         public async void DeleteEmpresa(int id)
@@ -114,8 +114,31 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async Task<IEnumerable<AssociadoModelEmpresaModel>> GetEmpresasAssociado()
         {
-            var associadosEmpresa = _context.AssociadosEmpresa;
-            return associadosEmpresa;
+
+            const string apiUrl = "https://localhost:7063/api/Empresa/GetEmpresasAssociado";
+
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+                    response.EnsureSuccessStatusCode();
+
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<List<AssociadoModelEmpresaModel>>>(jsonResponse);
+
+
+                    return serviceResponse.Dados;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            //var associadosEmpresa = _context.AssociadosEmpresa;
+            //return associadosEmpresa;
         }
 
         public async Task<EmpresaViewModel> GetEditar(int? Id)
@@ -133,7 +156,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 throw new NotImplementedException();
             }            
 
-            var AssociadosEmpresa = GetAssociadosEmpresa(empresaModel.Id);
+            var AssociadosEmpresa = GetAssociadosEmpresa(empresaModel.Id).Result;
 
             EmpresaViewModel empresaViewModel = new EmpresaViewModel()
             {
@@ -241,64 +264,74 @@ namespace ProjetoAssociados.Services.EmpresaServices
             }
         }
 
-        public void CadastrarSociedade(int IdEmpresa, List<CheckBoxViewModel> sociedade)
+        //public void CadastrarSociedade(int IdEmpresa, List<CheckBoxViewModel> sociedade)
+        //{
+        //    try
+        //    {
+        //        foreach (var item in sociedade)
+        //        {
+        //            if (item.Checked)
+        //            {
+        //                var associar = new AssociadoModelEmpresaModel()
+        //                {
+        //                    EmpresaId = IdEmpresa,
+        //                    AssociadoId = item.Id
+        //                };
+        //                _context.AssociadosEmpresa.AddRange(associar);
+        //            }
+        //        }
+        //        _context.SaveChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        public async Task<List<CheckBoxViewModel>> GetAssociadosEmpresa(int IdEmpresa)
         {
+            
+            const string apiUrl = "https://localhost:7063/api/Empresa/GetAssociadosEmpresa/";
 
-            try
+            using (var httpClient = new HttpClient())
             {
-
-                foreach (var item in sociedade)
+                try
                 {
+                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl+IdEmpresa);
+                    response.EnsureSuccessStatusCode();
 
-                    if (item.Checked)
-                    {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                        var associar = new AssociadoModelEmpresaModel()
-                        {
-                            EmpresaId = IdEmpresa,
-                            AssociadoId = item.Id
-                        };
+                    var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<List<CheckBoxViewModel>>>(jsonResponse);
 
-                        _context.AssociadosEmpresa.AddRange(associar);
 
-                    }
+                    return serviceResponse.Dados;
                 }
-
-                _context.SaveChanges();
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public List<CheckBoxViewModel> GetAssociadosEmpresa(int IdEmpresa)
-        {
-            var lstAssociados = new List<CheckBoxViewModel>();
-
-            try
-            {
-
-                var AssociadosEmpresa = from c in _context.Associados
-                                        select new CheckBoxViewModel
-                                        {
-                                            Id = c.Id,
-                                            Nome = c.Nome,
-                                            Checked = _context.AssociadosEmpresa
-                                                        .Any(ce => ce.EmpresaId == IdEmpresa && ce.AssociadoId == c.Id)
-                                        };
-
-                lstAssociados = AssociadosEmpresa.ToList();
-
-            }
-            catch(Exception ex)
-            {
-                throw ex;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
 
 
-            return lstAssociados;
+            //var lstAssociados = new List<CheckBoxViewModel>();
+            //try
+            //{
+            //    var AssociadosEmpresa = from c in _context.Associados
+            //                            select new CheckBoxViewModel
+            //                            {
+            //                                Id = c.Id,
+            //                                Nome = c.Nome,
+            //                                Checked = _context.AssociadosEmpresa
+            //                                            .Any(ce => ce.EmpresaId == IdEmpresa && ce.AssociadoId == c.Id)
+            //                            };
+            //    lstAssociados = AssociadosEmpresa.ToList();
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw ex;
+            //}
+            //return lstAssociados;
         }
 
     }
