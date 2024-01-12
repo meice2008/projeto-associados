@@ -29,7 +29,7 @@ namespace ProjetoAssociados.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
-            var AssociadosEmpresa = _associadoInterface.GetAssociados().Result;
+            var AssociadosEmpresa = _associadoInterface.GetAssociados().Result.Dados;
 
             var empresaViewModel = new EmpresaViewModel();
             var checkboxListAssociados = new List<CheckBoxViewModel>();
