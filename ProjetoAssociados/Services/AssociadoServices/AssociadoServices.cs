@@ -8,15 +8,18 @@ namespace ProjetoAssociados.Services.AssociadoServices
     {
         //readonly private ApplicationDbContext _context;
         //private readonly IEmpresaServices _empresaInterface;
-        public AssociadoServices()
+        private readonly IConfiguration _config;
+        public AssociadoServices(IConfiguration config)
         {
             //_context = context;
             //_empresaInterface = empresaInterface;
+            _config = config;
         }
 
         public async void DeleteAssociado(int id)
         {
-            const string apiUrl = "https://localhost:7063/api/Associado/";
+            //const string apiUrl = "https://localhost:7063/api/Associado/";
+            var urlApiAssociado = _config.GetSection("ApiSettings:AssociadoApiUrl");
 
             AssociadoModel associado = GetAssociadoById(id).Result.Dados;
 
@@ -24,7 +27,7 @@ namespace ProjetoAssociados.Services.AssociadoServices
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.DeleteAsync(apiUrl + associado.Id);
+                    HttpResponseMessage response = await httpClient.DeleteAsync(urlApiAssociado.Value+ "/" + associado.Id);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -44,13 +47,14 @@ namespace ProjetoAssociados.Services.AssociadoServices
         public async Task<ServiceResponse<AssociadoModel>> GetAssociadoById(int? id)
         {
 
-            const string apiUrl = "https://localhost:7063/api/Associado/";
+            //const string apiUrl = "https://localhost:7063/api/Associado/";
+            var urlApiAssociado = _config.GetSection("ApiSettings:AssociadoApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl + id);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiAssociado.Value + "/" + id);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -70,13 +74,14 @@ namespace ProjetoAssociados.Services.AssociadoServices
         public async Task<ServiceResponse<List<AssociadoModel>>> GetAssociados()
         {
 
-            const string apiUrl = "https://localhost:7063/api/Associado";
+            //const string apiUrl = "https://localhost:7063/api/Associado";
+            var urlApiAssociado = _config.GetSection("ApiSettings:AssociadoApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiAssociado.Value);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -95,7 +100,8 @@ namespace ProjetoAssociados.Services.AssociadoServices
 
         public async Task<AssociadoViewModel> Editar(AssociadoViewModel associadoViewModel)
         {
-            const string apiUrl = "https://localhost:7063/api/Associado/";
+            //const string apiUrl = "https://localhost:7063/api/Associado/";
+            var urlApiAssociado = _config.GetSection("ApiSettings:AssociadoApiUrl");
 
             using (var httpClient = new HttpClient())
             {
@@ -106,7 +112,7 @@ namespace ProjetoAssociados.Services.AssociadoServices
 
                     HttpContent content = new StringContent(associadoJson, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await httpClient.PutAsync(apiUrl + associadoViewModel.Id, content);
+                    HttpResponseMessage response = await httpClient.PutAsync(urlApiAssociado.Value + "/" + associadoViewModel.Id, content);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -160,7 +166,8 @@ namespace ProjetoAssociados.Services.AssociadoServices
 
         public async void Cadastrar(AssociadoViewModel associadoViewModel)
         {
-            const string apiUrl = "https://localhost:7063/api/Associado";
+            //const string apiUrl = "https://localhost:7063/api/Associado";
+            var urlApiAssociado = _config.GetSection("ApiSettings:AssociadoApiUrl");
 
             try
             {
@@ -174,7 +181,7 @@ namespace ProjetoAssociados.Services.AssociadoServices
 
                         HttpContent content = new StringContent(associadoJson, Encoding.UTF8, "application/json");
 
-                        HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+                        HttpResponseMessage response = await httpClient.PostAsync(urlApiAssociado.Value, content);
                         response.EnsureSuccessStatusCode();
 
                         string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -201,13 +208,14 @@ namespace ProjetoAssociados.Services.AssociadoServices
         public async Task<ServiceResponse<List<CheckBoxViewModel>>> GetEmpresasAssociado(int IdAssociado)
         {
 
-            const string apiUrl = "https://localhost:7063/api/Associado/GetEmpresasAssociado/";
+            //const string apiUrl = "https://localhost:7063/api/Associado/GetEmpresasAssociado/";
+            var urlApiAssociado = _config.GetSection("ApiSettings:AssociadoApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl + IdAssociado);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiAssociado.Value + "/GetEmpresasAssociado/" + IdAssociado);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();

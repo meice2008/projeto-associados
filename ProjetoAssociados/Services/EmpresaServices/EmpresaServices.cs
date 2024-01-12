@@ -7,15 +7,18 @@ namespace ProjetoAssociados.Services.EmpresaServices
     public class EmpresaServices : IEmpresaServices
     {
         //readonly private ApplicationDbContext _context;
-        public EmpresaServices()
+        private readonly IConfiguration _config;
+        public EmpresaServices(IConfiguration config)
         {
             //_context = context;
+            _config = config;
         }
 
         public async void DeleteEmpresa(int id)
         {
 
-            const string apiUrl = "https://localhost:7063/api/Empresa/";
+            //const string apiUrl = "https://localhost:7063/api/Empresa/";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             EmpresaModel empresa = await GetEmpresaById(id);
 
@@ -23,7 +26,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.DeleteAsync(apiUrl + empresa.Id);
+                    HttpResponseMessage response = await httpClient.DeleteAsync(urlApiEmpresa.Value + empresa.Id);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -44,13 +47,14 @@ namespace ProjetoAssociados.Services.EmpresaServices
         public async Task<EmpresaModel> GetEmpresaById(int? id)
         {
 
-            const string apiUrl = "https://localhost:7063/api/Empresa/";
+            //const string apiUrl = "https://localhost:7063/api/Empresa/";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl+id);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiEmpresa.Value + id);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -69,14 +73,15 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async Task<IEnumerable<EmpresaModel>> GetEmpresas()
         {
-            
-            const string apiUrl = "https://localhost:7063/api/Empresa";
+
+            //const string apiUrl = "https://localhost:7063/api/Empresa";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiEmpresa.Value);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -96,13 +101,14 @@ namespace ProjetoAssociados.Services.EmpresaServices
         public async Task<IEnumerable<AssociadoModelEmpresaModel>> GetEmpresasAssociado()
         {
 
-            const string apiUrl = "https://localhost:7063/api/Empresa/GetEmpresasAssociado";
+            //const string apiUrl = "https://localhost:7063/api/Empresa/GetEmpresasAssociado";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiEmpresa.Value + "/GetEmpresasAssociado");
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -158,9 +164,10 @@ namespace ProjetoAssociados.Services.EmpresaServices
         }
 
         public async Task<EmpresaViewModel> Editar(EmpresaViewModel empresaViewModel)
-        {           
+        {
 
-            const string apiUrl = "https://localhost:7063/api/Empresa/";
+            //const string apiUrl = "https://localhost:7063/api/Empresa/";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             using (var httpClient = new HttpClient())
             {
@@ -171,7 +178,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
                     HttpContent content = new StringContent(empresaJson, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await httpClient.PutAsync(apiUrl + empresaViewModel.Id, content);
+                    HttpResponseMessage response = await httpClient.PutAsync(urlApiEmpresa.Value + "/" + empresaViewModel.Id, content);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -191,7 +198,8 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async void Cadastrar(EmpresaViewModel empresaViewModel)
         {
-            const string apiUrl = "https://localhost:7063/api/Empresa";
+            //const string apiUrl = "https://localhost:7063/api/Empresa";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             try
             {                                
@@ -205,7 +213,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
                         HttpContent content = new StringContent(empresaJson, Encoding.UTF8, "application/json");                        
 
-                        HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+                        HttpResponseMessage response = await httpClient.PostAsync(urlApiEmpresa.Value, content);
                         response.EnsureSuccessStatusCode();
 
                         string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -230,14 +238,15 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async Task<List<CheckBoxViewModel>> GetAssociadosEmpresa(int IdEmpresa)
         {
-            
-            const string apiUrl = "https://localhost:7063/api/Empresa/GetAssociadosEmpresa/";
+
+            //const string apiUrl = "https://localhost:7063/api/Empresa/GetAssociadosEmpresa/";
+            var urlApiEmpresa = _config.GetSection("ApiSettings:EmpresaApiUrl");
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl+IdEmpresa);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiEmpresa.Value + "/GetAssociadosEmpresa/" + IdEmpresa);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
