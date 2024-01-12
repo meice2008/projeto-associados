@@ -39,16 +39,6 @@ namespace ProjetoAssociados.Services.AssociadoServices
                 }
             }
 
-            
-            //try
-            //{
-            //    _context.Associados.Remove(Associado);
-            //    _context.SaveChanges();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
         }        
 
         public async Task<ServiceResponse<AssociadoModel>> GetAssociadoById(int? id)
@@ -74,20 +64,7 @@ namespace ProjetoAssociados.Services.AssociadoServices
                     throw ex;
                 }
             }
-
-
-            ////
-            //var client = new HttpClient();
-            //HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Associado/" + id);
-            ////response.EnsureSuccessStatusCode();
-            //string res = await response.Content.ReadAsStringAsync();
-            //var final = JsonConvert.DeserializeObject<ServiceResponse<AssociadoModel>>(res);
-            ////
-
-            //return final.Dados;
-
-            //var associado = _context.Associados.FirstOrDefaultAsync(x => x.Id == id).Result;
-            //return associado;            
+           
         }
 
         public async Task<ServiceResponse<List<AssociadoModel>>> GetAssociados()
@@ -114,18 +91,6 @@ namespace ProjetoAssociados.Services.AssociadoServices
                 }
             }
 
-            //
-            //var client = new HttpClient();
-            //HttpResponseMessage response = await client.GetAsync("https://localhost:7063/api/Associado");
-            ////response.EnsureSuccessStatusCode();
-            //string res = await response.Content.ReadAsStringAsync();
-            //var final = JsonConvert.DeserializeObject<ServiceResponse<List<AssociadoModel>>>(res);
-            ////
-
-            //return final.Dados;
-
-            //var associados = _context.Associados;
-            //return associados;
         }
 
         public async Task<AssociadoViewModel> Editar(AssociadoViewModel associadoViewModel)
@@ -156,25 +121,6 @@ namespace ProjetoAssociados.Services.AssociadoServices
                 }
             }
 
-            //var associadoSelecionado = GetAssociadoById(associadoViewModel.Id).Result.Dados; 
-
-            //associadoSelecionado.Nome = associadoViewModel.Nome;
-            //associadoSelecionado.Cpf = associadoViewModel.Cpf;
-            ////associadoSelecionado.DtNascimento = associadoViewModel.DtNascimento
-
-            //var associadosEmpresa = _empresaInterface.GetEmpresasAssociado().Result;
-
-            //foreach (var item in associadosEmpresa)
-            //{
-            //    if (item.AssociadoId == associadoViewModel.Id)
-            //    {
-            //        _context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-            //    }
-            //}
-
-            //CadastrarSociedade(associadoSelecionado.Id, associadoViewModel.Empresas);
-
-            //return associadoViewModel;
         }
 
         public async Task<AssociadoViewModel> GetEditar(int? Id)
@@ -243,60 +189,14 @@ namespace ProjetoAssociados.Services.AssociadoServices
                     }
                 }
 
-                //_context.Empresas.Add(empresa);
-                //_context.SaveChanges();
-
-                //CadastrarSociedade(empresa.Id, empresaViewModel.Associados);
-
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-
-            //try
-            //{                
-            //    var associado = new AssociadoModel()
-            //    {
-            //        Nome = associadoViewModel.Nome,
-            //        Cpf = associadoViewModel.Cpf
-            //    };                
-            //    _context.Associados.Add(associado);
-            //    _context.SaveChanges();
-            //    CadastrarSociedade(associado.Id, associadoViewModel.Empresas);                
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw ex;
-            //}
-
         }
 
-        //public void CadastrarSociedade(int IdAssociado, List<CheckBoxViewModel> sociedade)
-        //{
-        //    try
-        //    {
-        //        foreach (var item in sociedade)
-        //        {
-        //            if (item.Checked)
-        //            {
-        //                var associar = new AssociadoModelEmpresaModel()
-        //                {
-        //                    AssociadoId = IdAssociado,
-        //                    EmpresaId = item.Id
-        //                };
-        //                _context.AssociadosEmpresa.AddRange(associar);
-        //            }
-        //        }
-        //        _context.SaveChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
 
         public async Task<ServiceResponse<List<CheckBoxViewModel>>> GetEmpresasAssociado(int IdAssociado)
         {
@@ -323,25 +223,6 @@ namespace ProjetoAssociados.Services.AssociadoServices
                 }
             }
 
-
-            //var lstEmpresas = new List<CheckBoxViewModel>();
-            //try
-            //{                
-            //    var EmpresasAssociado = from c in _context.Empresas
-            //                            select new CheckBoxViewModel
-            //                            {
-            //                                Id = c.Id,
-            //                                Nome = c.Nome,
-            //                                Checked = _context.AssociadosEmpresa
-            //                                                .Any(ce => ce.AssociadoId == IdAssociado && ce.EmpresaId == c.Id)
-            //                            };
-            //    lstEmpresas = EmpresasAssociado.ToList();
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw ex;
-            //}
-            //return lstEmpresas;
         }
 
     }

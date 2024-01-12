@@ -38,8 +38,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 }
             }
 
-            //_context.Empresas.Remove(empresa);
-            //_context.SaveChanges();
 
         }
 
@@ -67,8 +65,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 }
             }
 
-            //var empresa = _context.Empresas.FirstOrDefaultAsync(x => x.Id == id).Result;
-            //return empresa;
         }
 
         public async Task<IEnumerable<EmpresaModel>> GetEmpresas()
@@ -94,9 +90,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
                     throw ex;
                 }
             }
-            
-            //var empresas = _context.Empresas;
-            //return empresas;
 
         }
 
@@ -125,8 +118,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 }
             }
 
-            //var associadosEmpresa = _context.AssociadosEmpresa;
-            //return associadosEmpresa;
         }
 
         public async Task<EmpresaViewModel> GetEditar(int? Id)
@@ -195,7 +186,6 @@ namespace ProjetoAssociados.Services.EmpresaServices
                 }
             }
 
-            //return empresaViewModel;
 
         }
 
@@ -228,13 +218,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
                     {
                         throw ex;
                     }
-                }
-                
-                //_context.Empresas.Add(empresa);
-                //_context.SaveChanges();
-
-                //CadastrarSociedade(empresa.Id, empresaViewModel.Associados);
-
+                }                
 
             }
             catch (Exception ex)
