@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using ProjetoAssociados.Data;
+﻿using Newtonsoft.Json;
 using ProjetoAssociados.Models;
 using System.Text;
 
@@ -21,38 +19,28 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
             EmpresaModel empresa = await GetEmpresaById(id);
 
-            try
+            using (var httpClient = new HttpClient())
             {
-                
-
-                using (var httpClient = new HttpClient())
+                try
                 {
-                    try
-                    {
-                        HttpResponseMessage response = await httpClient.DeleteAsync(apiUrl+ empresa.Id);
-                        response.EnsureSuccessStatusCode();
+                    HttpResponseMessage response = await httpClient.DeleteAsync(apiUrl + empresa.Id);
+                    response.EnsureSuccessStatusCode();
 
-                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                        var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(jsonResponse);
+                    var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<List<EmpresaModel>>>(jsonResponse);
 
-                        //return serviceResponse.Dados;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    //return serviceResponse.Dados;
                 }
-
-                //_context.Empresas.Remove(empresa);
-                //_context.SaveChanges();
-
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            
+
+            //_context.Empresas.Remove(empresa);
+            //_context.SaveChanges();
+
         }
 
         public async Task<EmpresaModel> GetEmpresaById(int? id)
@@ -85,8 +73,8 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
         public async Task<IEnumerable<EmpresaModel>> GetEmpresas()
         {
+            
             const string apiUrl = "https://localhost:7063/api/Empresa";
-
 
             using (var httpClient = new HttpClient())
             {
@@ -183,37 +171,28 @@ namespace ProjetoAssociados.Services.EmpresaServices
 
             const string apiUrl = "https://localhost:7063/api/Empresa/";
 
-            try
+            using (var httpClient = new HttpClient())
             {
-
-                using (var httpClient = new HttpClient())
+                try
                 {
-                    try
-                    {
 
-                        string empresaJson = JsonConvert.SerializeObject(empresaViewModel);
+                    string empresaJson = JsonConvert.SerializeObject(empresaViewModel);
 
-                        HttpContent content = new StringContent(empresaJson, Encoding.UTF8, "application/json");
+                    HttpContent content = new StringContent(empresaJson, Encoding.UTF8, "application/json");
 
-                        HttpResponseMessage response = await httpClient.PutAsync(apiUrl + empresaViewModel.Id, content);
-                        response.EnsureSuccessStatusCode();
+                    HttpResponseMessage response = await httpClient.PutAsync(apiUrl + empresaViewModel.Id, content);
+                    response.EnsureSuccessStatusCode();
 
-                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                        var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<EmpresaViewModel>>(jsonResponse);
+                    var serviceResponse = JsonConvert.DeserializeObject<ServiceResponse<EmpresaViewModel>>(jsonResponse);
 
-                        return serviceResponse.Dados;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    return serviceResponse.Dados;
                 }
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
 
             //return empresaViewModel;

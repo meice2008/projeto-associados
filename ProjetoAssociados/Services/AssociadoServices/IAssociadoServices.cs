@@ -4,8 +4,8 @@ namespace ProjetoAssociados.Services.AssociadoServices
 {
     public interface IAssociadoServices
     {
-        Task<IEnumerable<AssociadoModel>> GetAssociados();
-        Task<AssociadoModel> GetAssociadoById(int? id);
+        Task<ServiceResponse<List<AssociadoModel>>> GetAssociados();
+        Task<ServiceResponse<AssociadoModel>> GetAssociadoById(int? id);
         void DeleteAssociado(int id);
 
         Task<AssociadoViewModel> GetEditar(int? Id);

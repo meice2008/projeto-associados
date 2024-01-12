@@ -21,7 +21,7 @@ namespace ProjetoAssociados.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<AssociadoModel> associados = _associadoInterface.GetAssociados().Result; 
+            var associados = _associadoInterface.GetAssociados().Result.Dados; 
             return View(associados);
         }
         
@@ -98,7 +98,7 @@ namespace ProjetoAssociados.Controllers
                 return NotFound();
             }
 
-            AssociadoModel associado = _associadoInterface.GetAssociadoById(Id).Result; 
+            AssociadoModel associado = _associadoInterface.GetAssociadoById(Id).Result.Dados; 
 
             if (associado == null)
             {
