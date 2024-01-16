@@ -30,7 +30,7 @@
 
         </div>
 
-        <div class="form-group text-light">
+        @* <div class="form-group text-light">
             <label for="Empresas" class="text-light">Empresas: </label>
 
             <br />
@@ -49,7 +49,54 @@
                     @Html.HiddenFor(m=>Model.Empresas[i].Id)
                 }
             </div>
+        </div> *@
+
+        <div>
+            <label for="Empresas" class="text-light">Empresas: </label>
+
+            <br /><br/>
+
+            <table id="tblAssociados" class="table table-light table-hover text-light mt-5">
+
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null)
+                    {
+                        @for (int i = 0; i < Model.Empresas.Count(); i++)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @Html.EditorFor(m=>Model.Empresas[i].Checked)
+                                </th>
+                                <th scope="row">
+                                    @Html.DisplayFor(m=>Model.Empresas[i].Id)
+                                    @Html.HiddenFor(m=>Model.Empresas[i].Id)
+                                </th>
+                                <th scope="row">
+                                    @Html.DisplayFor(m=>Model.Empresas[i].Nome) <text>&nbsp;</text>
+                                    @Html.HiddenFor(m=>Model.Empresas[i].Nome)
+                                </th>
+                                
+                            </tr>      
+                                                        
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
         </div>
+
+        <br/>
 
         <div class="d-flex gap-5 nt-5">
             <button type="submit" class="btn btn-success w-50">Editar</button>
