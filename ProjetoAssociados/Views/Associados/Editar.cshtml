@@ -4,10 +4,10 @@
     ViewData["Title"] = "Editar Associado";
 }
 
-<div>
+<div class="container">
 
-    <div class="mb-5 text-center">
-        <h1 class="text-dark">Editar Associados</h1>
+    <div class="container mb-5 text-center">
+        <h1 class="text-dark">Editar Associado</h1>
     </div>
 
     <form method="post" asp-controller="Associados" asp-action="Editar">
@@ -109,11 +109,12 @@
 
         <br/>
 
-        <div class="d-flex gap-5 nt-5">
+        <div class="container d-flex gap-5 nt-5">
             <button type="submit" class="btn btn-success w-50">Editar</button>
             <a class="btn btn-primary w-50" asp-controller="Associados" asp-action="Index">Voltar</a>
         </div>
 
+        <br/><br/><br/>
 
     </form>
 

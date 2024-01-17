@@ -4,40 +4,50 @@
     ViewData["Title"] = "Excluir Associado";
 }
 
-<div class="container bg-dark p-5 rounded-5">
+<div class="container mb-5 text-center">
+    <h1 class="text-dark">Excluir Associado</h1>
+</div>
 
-    <div class="mb-5 text-center">
-        <h1 class="text-light">Excluir Associados</h1>
-    </div>
+<div class="container">
+    
 
     <form method="post" asp-controller="Associados" asp-action="Excluir">
 
         <input type="hidden" asp-for="Id" />
+        
 
-        <h2 class="text-light">Tem certeza que deseja EXCLUIR o Associado??</h2>
+        <div class="container bg-dark p-5 rounded-5">
 
-        <div class="mb-3">
+            <h3 class="text-light text-center">Tem certeza que deseja EXCLUIR o Associado??</h3>
 
-            <label for="Nome" class="form-label text-light">Nome: </label>
-            <input type="text" class="form-control text-light" asp-for="Nome" id="Nome" disabled>
-            <span asp-validation-for="Nome" class="text-danger" />
+            <br />
+
+            <div class="mb-3">
+
+                <label for="Nome" class="form-label text-light">Nome: </label>
+                <input type="text" class="form-control text-light" asp-for="Nome" id="Nome" disabled>
+                <span asp-validation-for="Nome" class="text-danger" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="Cpf" class="form-label text-light">CPF: </label>
+                <input type="text" class="form-control text-light" asp-for="Cpf" id="Cpf" disabled>
+                <span asp-validation-for="Cpf" class="text-danger" />
+
+            </div>
 
         </div>
 
-        <div class="mb-3">
-
-            <label for="Cpf" class="form-label text-light">CPF: </label>
-            <input type="text" class="form-control text-light" asp-for="Cpf" id="Cpf" disabled>
-            <span asp-validation-for="Cpf" class="text-danger" />
-
-        </div>
-
+        <br/>
+        
         <div class="d-flex gap-5 nt-5">
             <button type="submit" class="btn btn-danger w-50">Excluir</button>
             <a class="btn btn-primary w-50" asp-controller="Associados" asp-action="Index">Voltar</a>
         </div>
 
-
+        <br/>
 
     </form>
 
