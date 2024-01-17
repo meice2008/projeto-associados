@@ -12,8 +12,8 @@ $(document).ready(function () {
         language: {
             "decimal": "",
             "emptyTable": "Nenhum registro disponivel",
-            "info": "Mostrando _START_ registro de _END_ em um _TOTAL_ registros",
-            "infoEmpty": "Mostrando 0 de 0 em 0 registros",
+            "info": "_START_ de _END_ em _TOTAL_ registros",
+            "infoEmpty": "0 de 0 em 0 registros",
             "infoFiltered": "(filtered from _MAX_ total entries)",
             "infoPostFix": "",
             "thousands": ",",
@@ -41,8 +41,8 @@ $(document).ready(function () {
         language: {
             "decimal": "",
             "emptyTable": "Nenhum registro disponivel",
-            "info": "Mostrando _START_ registro de _END_ em um _TOTAL_ registros",
-            "infoEmpty": "Mostrando 0 de 0 em 0 registros",
+            "info": "_START_ de _END_ em _TOTAL_ registros",
+            "infoEmpty": "0 de 0 em 0 registros",
             "infoFiltered": "(filtered from _MAX_ total entries)",
             "infoPostFix": "",
             "thousands": ",",

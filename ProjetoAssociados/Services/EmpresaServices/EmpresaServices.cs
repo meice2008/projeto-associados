@@ -26,7 +26,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.DeleteAsync(urlApiEmpresa.Value + empresa.Id);
+                    HttpResponseMessage response = await httpClient.DeleteAsync(urlApiEmpresa.Value +"/"+ empresa.Id);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -54,7 +54,7 @@ namespace ProjetoAssociados.Services.EmpresaServices
             {
                 try
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(urlApiEmpresa.Value + id);
+                    HttpResponseMessage response = await httpClient.GetAsync(urlApiEmpresa.Value + "/" + id);
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
